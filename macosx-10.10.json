@@ -1,6 +1,8 @@
 {
   "builders": [
     {
+      "type": "vmware-iso",
+
       "boot_wait": "2s",
       "disk_size": 40960,
       "guest_os_type": "darwin12-64",
@@ -17,7 +19,6 @@
       "ssh_wait_timeout": "10000s",
       "tools_upload_flavor": "darwin",
       "tools_upload_path": "/tmp/vmtools.iso",
-      "type": "vmware-iso",
       "vm_name": "{{ user `template` }}",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -33,6 +34,8 @@
       }
     },
     {
+      "type": "virtualbox-iso",
+
       "boot_wait": "2s",
       "disk_size": 40960,
       "guest_additions_mode": "disable",
@@ -48,112 +51,30 @@
       "ssh_port": 22,
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
-      "type": "virtualbox-iso",
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--audiocontroller",
-          "hda"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--boot1",
-          "dvd"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--boot2",
-          "disk"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--chipset",
-          "ich9"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "1"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--firmware",
-          "efi"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--hpet",
-          "on"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--keyboard",
-          "usb"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--mouse",
-          "usbtablet"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--vram",
-          "9"
-        ],
-        [
-          "storageattach",
-          "{{.Name}}",
-          "--storagectl",
-          "SATA Controller",
-          "--port",
-          "1",
-          "--type",
-          "dvddrive",
-          "--medium",
-          "{{user `iso_url`}}"
-        ]
+        [ "modifyvm", "{{.Name}}", "--audiocontroller", "hda" ],
+        [ "modifyvm", "{{.Name}}", "--boot1", "dvd" ],
+        [ "modifyvm", "{{.Name}}", "--boot2", "disk" ],
+        [ "modifyvm", "{{.Name}}", "--chipset", "ich9" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
+        [ "modifyvm", "{{.Name}}", "--firmware", "efi" ],
+        [ "modifyvm", "{{.Name}}", "--hpet", "on" ],
+        [ "modifyvm", "{{.Name}}", "--keyboard", "usb" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+        [ "modifyvm", "{{.Name}}", "--mouse", "usbtablet" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "9" ],
+        [ "storageattach", "{{.Name}}", "--storagectl", "SATA Controller", "--port", "1", "--type", "dvddrive", "--medium", "{{user `iso_url`}}" ]
       ],
       "vboxmanage_post": [
-        [
-          "storageattach",
-          "{{.Name}}",
-          "--storagectl",
-          "SATA Controller",
-          "--port",
-          "1",
-          "--type",
-          "dvddrive",
-          "--medium",
-          "none"
-        ],
-        [
-          "storagectl",
-          "{{.Name}}",
-          "--name",
-          "IDE Controller",
-          "--remove"
-        ]
+        [ "storageattach", "{{.Name}}", "--storagectl", "SATA Controller", "--port", "1", "--type", "dvddrive", "--medium", "none" ],
+        [ "storagectl", "{{.Name}}", "--name", "IDE Controller", "--remove" ]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `template` }}"
     },
     {
+      "type": "parallels-iso",
+
       "boot_wait": "2s",
       "disk_size": 40960,
       "guest_os_type": "macosx",
@@ -172,7 +93,6 @@
       "ssh_port": 22,
       "ssh_username": "vagrant",
       "ssh_wait_timeout": "10000s",
-      "type": "parallels-iso",
       "vm_name": "{{ user `template` }}"
     }
   ],
